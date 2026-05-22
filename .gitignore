@@ -1,0 +1,4 @@
+__pycache__/
+.codebuddy/
+uploads/*
+!uploads/.gitkeep
