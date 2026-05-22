@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+
+
+
+<html lang="zh-CN">
+
+
+
+<head>
+
+
+
+    <meta charset="UTF-8">
+
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+    <title>Issue 跟踪系统</title>
+
+
+
+    <link rel="stylesheet" href="/static/style.css">
+
+
+
+</head>
+
+
+
+<body>
+
+
+
+
+
+
+
+    <!-- Login Page -->
+
+
+
+    <div id="loginPage" class="login-container">
+
+
+
+        <div class="login-card">
+
+
+
+            <div class="login-icon">IT</div>
+
+
+
+            <h1>Issue 跟踪系统</h1>
+
+
+
+            <p class="login-subtitle">请输入您的姓名进入系统</p>
+
+
+
+            <form id="loginForm">
+
+
+
+                <div class="form-group">
+
+
+
+                    <label for="engineerName">姓名</label>
+
+
+
+                    <input type="text" id="engineerName" placeholder="请输入您的姓名" required autocomplete="off">
+
+
+
+                </div>
+
+
+
+                <div class="form-group">
+
+
+
+                    <label class="checkbox-label">
+
+
+
+                        <input type="checkbox" id="isAdmin">
+
+
+
+                        <span>管理员模式</span>
+
+
+
+                    </label>
+
+
+
+                </div>
+
+
+
+                <div class="form-group" id="adminPasswordGroup" style="display:none;">
+
+
+
+                    <label for="adminPassword">管理员密码</label>
+
+
+
+                    <input type="password" id="adminPassword" placeholder="请输入管理员密码">
+
+
+
+                </div>
+
+
+
+                <button type="submit" class="btn btn-primary btn-block">进入系统</button>
+
+
+
+            </form>
+
+
+
+            <p id="loginError" class="error-msg" style="display:none;"></p>
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+    <!-- Main Page -->
+
+
+
+    <div id="mainPage" style="display:none;">
+
+
+
+        <header class="header">
+
+
+
+            <div class="header-left">
+
+
+
+                <h1>Issue 跟踪系统</h1>
+
+
+
+            </div>
+
+
+
+            <div class="header-right">
+
+
+
+                <span class="user-badge" id="userBadge"></span>
+
+
+
+                <button class="btn btn-outline btn-sm" onclick="logout()">退出登录</button>
+
+
+
+            </div>
+
+
+
+        </header>
+
+
+
+
+
+
+
+        <div class="main-content">
+
+
+
+            <!-- Admin Toolbar -->
+
+
+
+            <div id="adminToolbar" class="admin-toolbar" style="display:none;">
+
+
+
+                <div class="toolbar-left">
+
+
+
+                    <!-- 项目选择 -->
+
+
+
+                    <div class="project-selector">
+
+
+
+                        <select id="projectSelect" onchange="switchProject()">
+
+
+
+                            <option value="">加载中...</option>
+
+
+
+                        </select>
+
+
+
+                        <button class="btn btn-outline btn-sm" onclick="showNewProjectDialog()" title="新建项目">＋</button>
+
+
+
+                    </div>
+
+
+
+                    <div class="toolbar-divider"></div>
+
+
+
+                    <button class="btn btn-success" onclick="document.getElementById('uploadInput').click()">
+
+
+
+                        导入 Excel
+
+
+
+                    </button>
+
+
+
+                    <input type="file" id="uploadInput" accept=".xlsx,.xls,.zip" style="display:none;" onchange="handleUpload(this)">
+
+
+
+                    <button class="btn btn-info" onclick="openPasteModal()">
+
+
+
+                        在线录入
+
+
+
+                    </button>
+
+
+
+                    <button class="btn btn-warning" onclick="exportExcel()">
+
+
+
+                        ? 导出 Excel
+
+
+
+                    </button>
+
+
+
+                    <button class="btn btn-danger" onclick="clearCurrentProject()" title="清空当前项目所有数据">
+
+
+
+                        清空当前表
+
+
+
+                    </button>
+
+
+
+                </div>
+
+
+
+                <div class="toolbar-right">
+
+
+
+                    <span class="toolbar-info" id="statsInfo"></span>
+
+
+
+                </div>
+
+
+
+            </div>
+
+
+
+
+
+
+
+            <!-- Stats Cards -->
+
+
+
+            <div class="stats-row" id="statsRow" style="display:none;">
+
+
+
+                <div class="stat-card">
+
+
+
+                    <div class="stat-value" id="statTotal">0</div>
+
+
+
+                    <div class="stat-label">总 Issue 数</div>
+
+
+
+                </div>
+
+
+
+                <div class="stat-card">
+
+
+
+                    <div class="stat-value" id="statEngineers">0</div>
+
+
+
+                    <div class="stat-label">研发工程师数</div>
+
+
+
+                </div>
+
+
+
+                <div class="stat-card">
+
+
+
+                    <div class="stat-value" id="statMyIssues">0</div>
+
+
+
+                    <div class="stat-label">我的 Issue</div>
+
+
+
+                </div>
+
+
+
+            </div>
+
+
+
+
+
+
+
+            <!-- Filter Bar -->
+
+
+
+            <div class="filter-bar">
+
+
+
+                <div class="filter-left">
+
+
+
+                    <input type="text" id="searchInput" placeholder="搜索关键词..." oninput="filterIssues()">
+
+
+
+                    <select id="statusFilter" onchange="filterIssues()">
+
+
+
+                        <option value="">全部状态</option>
+
+
+
+                        <option value="待确认">待确认</option>
+
+
+
+                        <option value="已确认">已确认</option>
+
+
+
+                        <option value="处理中">处理中</option>
+
+
+
+                        <option value="待回归">待回归</option>
+
+
+
+                        <option value="已回归">已回归</option>
+
+
+
+                        <option value="待关闭">待关闭</option>
+
+
+
+                    </select>
+
+
+
+                </div>
+
+
+
+                <div class="filter-right">
+
+
+
+                    <span id="filterCount">共 0 条记录</span>
+
+
+
+                </div>
+
+
+
+            </div>
+
+
+
+
+
+
+
+            <!-- Issue Table -->
+
+
+
+            <div class="table-wrapper">
+
+
+
+                <table id="issueTable">
+
+
+
+                    <thead>
+
+
+
+                        <tr>
+
+
+
+                            <th>ID</th>
+
+
+
+                            <th>测试事项</th>
+
+
+
+                            <th>阶段</th>
+
+
+
+                            <th>分类</th>
+
+
+
+                            <th>测试工程师</th>
+
+
+
+                            <th>研发工程师</th>
+
+
+
+                            <th>部门</th>
+
+
+
+                            <th>发生日期</th>
+
+
+
+                            <th>要求结案日期</th>
+
+
+
+                            <th>是否Delay</th>
+
+
+
+                            <th>Issue状态</th>
+
+
+
+                            <th>严重度</th>
+
+
+
+                            <th>问题点详细描述</th>
+
+
+
+                            <th>问题点当前处理进度</th>
+
+
+
+                            <th>更新时间</th>
+
+
+
+                            <th>操作</th>
+
+
+
+                        </tr>
+
+
+
+                    </thead>
+
+
+
+                    <tbody id="issueTableBody">
+
+
+
+                        <tr><td colspan="16" class="empty-state">
+
+
+
+                            <p>暂无数据，请先由管理员导入或在线录入</p>
+
+
+
+                        </td></tr>
+
+
+
+                    </tbody>
+
+
+
+                </table>
+
+
+
+            </div>
+
+
+
+
+
+
+
+            <!-- Pagination -->
+
+
+
+            <div class="pagination" id="pagination" style="display:none;">
+
+
+
+                <button class="btn btn-outline btn-sm" id="prevBtn" onclick="prevPage()" disabled>上一页</button>
+
+
+
+                <span id="pageInfo">第 1 页 / 共 1 页</span>
+
+
+
+                <button class="btn btn-outline btn-sm" id="nextBtn" onclick="nextPage()" disabled>下一页</button>
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+        <div id="toast" class="toast" style="display:none;"></div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+    <!-- Edit Modal -->
+
+
+
+    <div id="editModal" class="modal" style="display:none;">
+
+
+
+        <div class="modal-content">
+
+
+
+            <div class="modal-header">
+
+
+
+                <h2>编辑 Issue #<span id="editIssueId"></span></h2>
+
+
+
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+
+
+
+            </div>
+
+
+
+            <div class="modal-body">
+
+
+
+                <div class="edit-info">
+
+
+
+                    <p><strong>测试事项：</strong><span id="editItem"></span></p>
+
+
+
+                    <p><strong>问题点详细描述：</strong><span id="editDesc"></span></p>
+
+
+
+                    <p><strong>严重度：</strong><span id="editSeverity"></span></p>
+
+
+
+                </div>
+
+
+
+                <div class="form-group">
+
+
+
+                    <label for="editStatus">问题点当前处理进度</label>
+
+
+
+                    <select id="editStatus">
+
+
+
+                        <option value="">-- 请选择 --</option>
+
+
+
+                        <option value="待确认">待确认</option>
+
+
+
+                        <option value="已确认">已确认</option>
+
+
+
+                        <option value="处理中">处理中</option>
+
+
+
+                        <option value="待回归">待回归</option>
+
+
+
+                        <option value="已回归">已回归</option>
+
+
+
+                        <option value="待关闭">待关闭</option>
+
+
+
+                    </select>
+
+
+
+                </div>
+
+
+
+                <div class="form-group">
+
+
+
+                    <label for="editTime">更新时间</label>
+
+
+
+                    <input type="date" id="editTime">
+
+
+
+                </div>
+
+
+
+            </div>
+
+
+
+            <div class="modal-footer">
+
+
+
+                <button class="btn btn-outline" onclick="closeModal()">取消</button>
+
+
+
+                <button class="btn btn-primary" onclick="saveEdit()">保存</button>
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+    <!-- Upload Progress Modal -->
+
+
+
+    <div id="uploadModal" class="modal" style="display:none;">
+
+
+
+        <div class="modal-content modal-sm">
+
+
+
+            <div class="modal-header"><h2>正在导入...</h2></div>
+
+
+
+            <div class="modal-body text-center">
+
+
+
+                <div class="spinner"></div>
+
+
+
+                <p id="uploadMsg">正在解析文件...</p>
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+    <!-- Paste Modal -->
+
+
+
+    <div id="pasteModal" class="modal" style="display:none;">
+
+
+
+        <div class="modal-content modal-lg">
+
+
+
+            <div class="modal-header">
+
+
+
+                <h2>在线粘贴录入</h2>
+
+
+
+                <button class="modal-close" onclick="closePasteModal()">&times;</button>
+
+
+
+            </div>
+
+
+
+            <div class="modal-body">
+
+
+
+                <div class="paste-hint">
+
+
+
+                    <strong>使用说明：</strong>在 Excel 中选中数据区域（<em>含表头</em>），<kbd>Ctrl+C</kbd> 复制，然后在下框中 <kbd>Ctrl+V</kbd> 粘贴，点击「解析预览」即可。
+
+
+
+                </div>
+
+
+
+                <textarea id="pasteArea" placeholder="在此粘贴 Excel 数据（含表头行）..." rows="6"></textarea>
+
+
+
+                <div class="paste-toolbar">
+
+
+
+                    <button class="btn btn-primary btn-sm" onclick="parsePastedData()">解析预览</button>
+
+
+
+                    <label class="checkbox-label" style="display:inline-flex;align-items:center;gap:6px;margin-left:12px;">
+
+
+
+                        <input type="checkbox" id="pasteAppend" checked>
+
+
+
+                        <span>追加模式（取消则覆盖全部数据）</span>
+
+
+
+                    </label>
+
+
+
+                    <span id="pasteParseMsg" class="paste-msg"></span>
+
+
+
+                </div>
+
+
+
+                <div class="paste-preview-wrapper" id="pastePreviewWrapper" style="display:none;">
+
+
+
+                    <div class="paste-preview-header">
+
+
+
+                        <span>预览：<strong id="pasteRowCount">0</strong> 条数据（含表头），共匹配 <strong id="pasteColCount">0</strong> 列</span>
+
+
+
+                    </div>
+
+
+
+                    <div class="table-wrapper" style="max-height:300px;">
+
+
+
+                        <table id="pastePreviewTable">
+
+
+
+                            <thead id="pastePreviewHead"></thead>
+
+
+
+                            <tbody id="pastePreviewBody"></tbody>
+
+
+
+                        </table>
+
+
+
+                    </div>
+
+
+
+                </div>
+
+
+
+            </div>
+
+
+
+            <div class="modal-footer">
+
+
+
+                <button class="btn btn-danger btn-sm" onclick="clearAllData()" style="margin-right:auto;">清空全部数据</button>
+
+
+
+                <button class="btn btn-outline" onclick="closePasteModal()">取消</button>
+
+
+
+                <button class="btn btn-primary" id="pasteSaveBtn" onclick="savePastedData()" disabled>确认导入</button>
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+    <script src="/static/script.js"></script>
+
+
+
+</body>
+
+
+
+</html>
