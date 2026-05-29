@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-// ======== 列名简写 ========
+// ======== ??????д ========
 
 
 
@@ -126,91 +126,91 @@ var C = {};
 
 
 
-C["A"] = "测试事项";
+C["A"] = "????????";
 
 
 
-C["B"] = "阶段";
+C["B"] = "???";
 
 
 
-C["C"] = "分类";
+C["C"] = "????";
 
 
 
-C["D"] = "测试工程师";
+C["D"] = "????????";
 
 
 
-C["E"] = "研发工程师";
+C["E"] = "?з??????";
 
 
 
-C["F"] = "部门";
+C["F"] = "????";
 
 
 
-C["G"] = "发生日期";
+C["G"] = "????????";
 
 
 
-C["H"] = "要求结案日期";
+C["H"] = "????????";
 
 
 
-C["I"] = "统计日期";
+C["I"] = "???????";
 
 
 
-C["J"] = "是否Delay";
+C["J"] = "???Delay";
 
 
 
-C["K"] = "Delay天数";
+C["K"] = "Delay????";
 
 
 
-C["L"] = "Issue状态";
+C["L"] = "Issue??";
 
 
 
-C["M"] = "严重度";
+C["M"] = "?????";
 
 
 
-C["N"] = "问题点详细描述";
+C["N"] = "????????????";
 
 
 
-C["O"] = "RD是否提供改善措施";
+C["O"] = "RD???????????";
 
 
 
-C["P"] = "要求回复日期";
+C["P"] = "?????????";
 
 
 
-C["Q"] = "回复是否Delay";
+C["Q"] = "??????Delay";
 
 
 
-C["R"] = "改善措施";
+C["R"] = "??????";
 
 
 
-C["S"] = "DQA是否确认";
+C["S"] = "DQA??????";
 
 
 
-C["T"] = "DQA确认";
+C["T"] = "DQA???";
 
 
 
-C["U"] = "问题点当前处理进度";
+C["U"] = "??????????????";
 
 
 
-C["V"] = "更新时间";
+C["V"] = "???????";
 
 
 
@@ -218,7 +218,7 @@ C["V"] = "更新时间";
 
 
 
-// ======== 登录 ========
+// ======== ??? ========
 
 
 
@@ -246,7 +246,7 @@ async function handleLogin(e) {
 
 
 
-    if (!name) { showLoginError("请输入姓名"); return; }
+    if (!name) { showLoginError("??????????"); return; }
 
 
 
@@ -254,7 +254,7 @@ async function handleLogin(e) {
 
 
 
-        if (!adminPassword) { showLoginError("请输入管理员密码"); return; }
+        if (!adminPassword) { showLoginError("??????????????"); return; }
 
 
 
@@ -270,7 +270,7 @@ async function handleLogin(e) {
 
 
 
-            if (!result.success) { showLoginError(result.message || "管理员密码错误"); return; }
+            if (!result.success) { showLoginError(result.message || "????????????"); return; }
 
 
 
@@ -278,7 +278,7 @@ async function handleLogin(e) {
 
 
 
-        } catch (err) { showLoginError("网络错误，请重试"); return; }
+        } catch (err) { showLoginError("?????????????"); return; }
 
 
 
@@ -310,7 +310,7 @@ async function handleLogin(e) {
 
 
 
-    if (isAdmin) { badge.classList.add("admin-badge"); badge.textContent = name + " (管理员)"; }
+    if (isAdmin) { badge.classList.add("admin-badge"); badge.textContent = name + " (?????)"; }
 
 
 
@@ -442,7 +442,7 @@ function logout() {
 
 
 
-// ======== 项目管理 ========
+// ======== ??????? ========
 
 
 
@@ -474,7 +474,7 @@ async function loadProjects() {
 
 
 
-            // 如果当前项目不在列表中，切换到第一个
+            // ??????????????б??У??л????????
 
 
 
@@ -502,7 +502,7 @@ async function loadProjects() {
 
 
 
-    } catch (err) { console.error("加载项目列表失败", err); }
+    } catch (err) { console.error("????????б????", err); }
 
 
 
@@ -594,7 +594,7 @@ async function showNewProjectDialog() {
 
 
 
-    var name = prompt("请输入新项目名称：");
+    var name = prompt("????????????????");
 
 
 
@@ -658,7 +658,7 @@ async function showNewProjectDialog() {
 
 
 
-            showToast(result.message || "创建失败", "error");
+            showToast(result.message || "???????", "error");
 
 
 
@@ -666,7 +666,7 @@ async function showNewProjectDialog() {
 
 
 
-    } catch (err) { showToast("网络错误", "error"); }
+    } catch (err) { showToast("???????", "error"); }
 
 
 
@@ -690,11 +690,11 @@ async function clearCurrentProject() {
 
 
 
-    if (!confirm("警告：确定要清空项目「" + projectName + "」的全部数据吗？此操作不可恢复！")) return;
+    if (!confirm("???棺????????????" + projectName + "?????????????????????????")) return;
 
 
 
-    if (!confirm("再次确认：将删除项目「" + projectName + "」的所有 Issue 记录，确定继续？")) return;
+    if (!confirm("?????????????????" + projectName + "???????? Issue ??????????????")) return;
 
 
 
@@ -742,7 +742,7 @@ async function clearCurrentProject() {
 
 
 
-            showToast(result.message || "操作失败", "error");
+            showToast(result.message || "???????", "error");
 
 
 
@@ -750,7 +750,7 @@ async function clearCurrentProject() {
 
 
 
-    } catch (err) { showToast("网络错误", "error"); }
+    } catch (err) { showToast("???????", "error"); }
 
 
 
@@ -762,7 +762,7 @@ async function clearCurrentProject() {
 
 
 
-// ======== 数据加载 ========
+// ======== ??????? ========
 
 
 
@@ -777,8 +777,8 @@ async function loadIssuesAllProjects() {
             filteredIssues = [...allIssues];
             document.getElementById("statMyIssues").textContent = result.count;
             filterIssues();
-        } else { showToast(result.message || "加载失败", "error"); }
-    } catch (err) { showToast("网络错误，请刷新重试", "error"); }
+        } else { showToast(result.message || "???????", "error"); }
+    } catch (err) { showToast("????????????????", "error"); }
 }
 
 async function loadIssues() {
@@ -833,11 +833,11 @@ async function loadIssues() {
 
 
 
-        } else { showToast(result.message || "加载失败", "error"); }
+        } else { showToast(result.message || "???????", "error"); }
 
 
 
-    } catch (err) { showToast("网络错误，请刷新重试", "error"); }
+    } catch (err) { showToast("????????????????", "error"); }
 
 
 
@@ -969,7 +969,7 @@ function renderTable() {
 
 
 
-    document.getElementById("filterCount").textContent = "共 " + filteredIssues.length + " 条记录";
+    document.getElementById("filterCount").textContent = "?? " + filteredIssues.length + " ?????";
 
 
 
@@ -977,7 +977,7 @@ function renderTable() {
 
 
 
-        tbody.innerHTML = "<tr><td colspan=\"16\" class=\"empty-state\"><p>暂无匹配的数据</p></td></tr>";
+        tbody.innerHTML = "<tr><td colspan=\"16\" class=\"empty-state\"><p>????????????</p></td></tr>";
 
 
 
@@ -1109,7 +1109,7 @@ function renderTable() {
 
 
 
-            "<td><button class=\"btn btn-primary btn-xs\" onclick=\"openEditModal(" + issue.id + ")\">编辑</button></td>" +
+            "<td><button class=\"btn btn-primary btn-xs\" onclick=\"openEditModal(" + issue.id + ")\">??</button></td>" +
 
 
 
@@ -1137,7 +1137,7 @@ function renderTable() {
 
 
 
-        document.getElementById("pageInfo").textContent = "第 " + currentPage + " 页 / 共 " + totalPages + " 页";
+        document.getElementById("pageInfo").textContent = "?? " + currentPage + " ? / ?? " + totalPages + " ?";
 
 
 
@@ -1249,7 +1249,7 @@ async function saveEdit() {
 
 
 
-    if (!status && !tv) { showToast("请至少填写一项", "error"); return; }
+    if (!status && !tv) { showToast("????????д???", "error"); return; }
 
 
 
@@ -1273,15 +1273,15 @@ async function saveEdit() {
 
 
 
-        if (result.success) { showToast("更新成功", "success"); closeModal(); await loadIssues(); }
+        if (result.success) { showToast("??????", "success"); closeModal(); await loadIssues(); }
 
 
 
-        else { showToast(result.message || "更新失败", "error"); }
+        else { showToast(result.message || "???????", "error"); }
 
 
 
-    } catch (err) { showToast("网络错误，请重试", "error"); }
+    } catch (err) { showToast("?????????????", "error"); }
 
 
 
@@ -1293,7 +1293,7 @@ async function saveEdit() {
 
 
 
-// ======== 导入导出 ========
+// ======== ?????? ========
 
 
 
@@ -1349,11 +1349,11 @@ async function handleUpload(input) {
 
 
 
-        else { showToast(result.message || "导入失败", "error"); }
+        else { showToast(result.message || "???????", "error"); }
 
 
 
-    } catch (err) { document.getElementById("uploadModal").style.display = "none"; input.value = ""; showToast("网络错误", "error"); }
+    } catch (err) { document.getElementById("uploadModal").style.display = "none"; input.value = ""; showToast("???????", "error"); }
 
 
 
@@ -1373,7 +1373,7 @@ async function exportExcel() {
 
 
 
-    if (!pw) { showToast("请先输入管理员密码", "error"); return; }
+    if (!pw) { showToast("????????????????", "error"); return; }
 
 
 
@@ -1409,7 +1409,7 @@ async function exportExcel() {
 
 
 
-            a.download = "Issue跟踪_" + new Date().toISOString().slice(0,10) + ".xlsx";
+            a.download = "Issue????_" + new Date().toISOString().slice(0,10) + ".xlsx";
 
 
 
@@ -1421,15 +1421,15 @@ async function exportExcel() {
 
 
 
-            showToast("导出成功", "success");
+            showToast("???????", "success");
 
 
 
-        } else { var r2 = await resp.json(); showToast(r2.message || "导出失败", "error"); }
+        } else { var r2 = await resp.json(); showToast(r2.message || "???????", "error"); }
 
 
 
-    } catch (err) { showToast("网络错误", "error"); }
+    } catch (err) { showToast("???????", "error"); }
 
 
 
@@ -1441,7 +1441,7 @@ async function exportExcel() {
 
 
 
-// ======== 粘贴录入 ========
+// ======== ?????? ========
 
 
 
@@ -1653,7 +1653,7 @@ function parsePastedData() {
 
 
 
-        msgEl.textContent = "请在文本框中粘贴数据";
+        msgEl.textContent = "??????????????????";
 
 
 
@@ -1677,7 +1677,7 @@ function parsePastedData() {
 
 
 
-        msgEl.textContent = "至少需要表头行和一行数据";
+        msgEl.textContent = "???????????к????????";
 
 
 
@@ -1701,7 +1701,7 @@ function parsePastedData() {
 
 
 
-        msgEl.textContent = "未检测到制表符分隔，请从Excel复制后粘贴";
+        msgEl.textContent = "δ????????????????Excel????????";
 
 
 
@@ -1729,7 +1729,7 @@ function parsePastedData() {
 
 
 
-        msgEl.textContent = "未匹配到有效列名，请确保Excel表头包含对应字段";
+        msgEl.textContent = "δ?????Ч???????????Excel?????????????";
 
 
 
@@ -1789,7 +1789,7 @@ function parsePastedData() {
 
 
 
-        msgEl.textContent = "没有可解析的有效数据行";
+        msgEl.textContent = "??п????????Ч??????";
 
 
 
@@ -1821,7 +1821,7 @@ function parsePastedData() {
 
 
 
-    msgEl.textContent = "解析成功！" + dataRows.length + " 行数据，" + vc + " 个匹配列";
+    msgEl.textContent = "?????????" + dataRows.length + " ???????" + vc + " ???????";
 
 
 
@@ -1893,7 +1893,7 @@ function parsePastedData() {
 
 
 
-    if (dataRows.length > 50) { html += "<tr><td colspan=\"" + rawHdrs.length + "\" style=\"text-align:center;color:#6b7280;padding:10px;\">... 还有 " + (dataRows.length - 50) + " 行数据未显示</td></tr>"; }
+    if (dataRows.length > 50) { html += "<tr><td colspan=\"" + rawHdrs.length + "\" style=\"text-align:center;color:#6b7280;padding:10px;\">... ???? " + (dataRows.length - 50) + " ??????δ???</td></tr>"; }
 
 
 
@@ -1921,7 +1921,7 @@ async function savePastedData() {
 
 
 
-    if (!parsedPasteData || parsedPasteData.length === 0) { showToast("没有要保存的数据", "error"); return; }
+    if (!parsedPasteData || parsedPasteData.length === 0) { showToast("?????????????", "error"); return; }
 
 
 
@@ -1933,7 +1933,7 @@ async function savePastedData() {
 
 
 
-    btn.disabled = true; btn.textContent = "保存中...";
+    btn.disabled = true; btn.textContent = "??????...";
 
 
 
@@ -1985,15 +1985,15 @@ async function savePastedData() {
 
 
 
-        } else { showToast(result.message || "保存失败", "error"); btn.disabled = false; }
+        } else { showToast(result.message || "???????", "error"); btn.disabled = false; }
 
 
 
-    } catch (err) { showToast("网络错误", "error"); btn.disabled = false; }
+    } catch (err) { showToast("???????", "error"); btn.disabled = false; }
 
 
 
-    btn.textContent = "确认导入";
+    btn.textContent = "??????";
 
 
 
@@ -2009,7 +2009,7 @@ async function clearAllData() {
 
 
 
-    if (!confirm("警告：确定要清空全部数据吗？此操作不可恢复！")) return;
+    if (!confirm("???棺????????????????????????????")) return;
 
 
 
@@ -2025,15 +2025,15 @@ async function clearAllData() {
 
 
 
-        if (result.success) { showToast("数据已清空", "success"); closePasteModal(); await loadIssues(); if (isAdmin) await loadStats(); }
+        if (result.success) { showToast("?????????", "success"); closePasteModal(); await loadIssues(); if (isAdmin) await loadStats(); }
 
 
 
-        else { showToast(result.message || "操作失败", "error"); }
+        else { showToast(result.message || "???????", "error"); }
 
 
 
-    } catch (err) { showToast("网络错误", "error"); }
+    } catch (err) { showToast("???????", "error"); }
 
 
 
@@ -2045,7 +2045,7 @@ async function clearAllData() {
 
 
 
-// ======== 工具函数 ========
+// ======== ??????? ========
 
 
 
@@ -2101,7 +2101,7 @@ function showToast(message, type) {
 
 
 
-// ======== 描述悬浮卡片 ========
+// ======== ??????????? ========
 
 
 
@@ -2233,7 +2233,7 @@ function positionTooltip(tip, cell) {
 
 
 
-    // 默认显示在单元格下方
+    // ?????????????·?
 
     var left = rect.left;
 
@@ -2243,7 +2243,7 @@ function positionTooltip(tip, cell) {
 
 
 
-    // 如果右侧超出视口，向左调整
+    // ???????????????????
 
     if (left + tipWidth > viewportWidth - 10) {
 
@@ -2261,7 +2261,7 @@ function positionTooltip(tip, cell) {
 
 
 
-    // 如果下方空间不够，显示在上方
+    // ????·????????????????
 
     if (top + tipHeight > viewportHeight - 10) {
 
@@ -2271,7 +2271,7 @@ function positionTooltip(tip, cell) {
 
 
 
-        // 调整箭头方向
+        // ???????????
 
         tip.classList.add("tooltip-above");
 
@@ -2341,9 +2341,11 @@ document.addEventListener("mouseout", function(e) {
 
 
 
-// 滚动时隐藏 tooltip
+// ????????? tooltip
 
-document.querySelector(".table-wrapper").addEventListener("scroll", function() {
+var tableWrapper = document.querySelector(".table-wrapper");
+if (tableWrapper) {
+    tableWrapper.addEventListener("scroll", function() {
 
 
 
@@ -2351,20 +2353,11 @@ document.querySelector(".table-wrapper").addEventListener("scroll", function() {
 
 
 
-    tip.style.display = "none";
+        tip.style.display = "none";
+    });
+}
 
-
-
-});
-
-
-
-
-
-
-
-
-
+document.addEventListener("click", function(e) {
 
 
     if (e.target.id === "editModal") closeModal();
